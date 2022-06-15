@@ -89,7 +89,6 @@ jobs:
 
       - name: Run build via qemu/binfmt
         run: |
-          go mod tidy
           CARGO_NET_GIT_FETCH_WITH_CLI=true RUSTFLAGS='-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make clean build
         env:
           GOARCH: ${{ matrix.arch }}
