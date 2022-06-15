@@ -83,6 +83,9 @@ jobs:
 
       - name: Install QEMU
         uses: docker/setup-qemu-action@v1
+        with:
+          platforms: all
+
 
       - name: Check out code
         uses: actions/checkout@v2
@@ -93,6 +96,8 @@ jobs:
         env:
           GOARCH: ${{ matrix.arch }}
           GOOS: linux
+        with:
+          platforms: linux/amd64,linux/arm64,linux/386,linux/riscv64
 
   build_macos_amd64:
     runs-on: macos-latest
