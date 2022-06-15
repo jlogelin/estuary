@@ -56,7 +56,7 @@ jobs:
         submodules: true
     - name: Build binary for ${{ matrix.version }}
       run: |
-        docker run --rm -v "$PWD":/usr/est/build -w /usr/est/build jlogelin/estuary-base:linux-arm64 /bin/sh -c "CARGO_NET_GIT_FETCH_WITH_CLI=true RUSTFLAGS='-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make clean build"
+        docker run --rm -v "$PWD":/usr/est/build -w /usr/est/build jlogelin/estuary-base:linux-arm64 /bin/sh -c "GOOS=linux GOARCH=arm64 CARGO_NET_GIT_FETCH_WITH_CLI=true RUSTFLAGS='-C target-cpu=native -g --target aarch64-unknown-linux-gnu' FFI_BUILD_FROM_SOURCE=1 make clean build"
     - name: Prepare build artifact for stashing
       run: |
         mkdir release
@@ -85,7 +85,7 @@ jobs:
         uses: docker/setup-qemu-action@v1
         with:
           platforms: linux/arm64
-          
+
       - name: Check out code
         uses: actions/checkout@v2
 
