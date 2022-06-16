@@ -62,7 +62,7 @@ jobs:
 
     - name: Build binary for ${{ matrix.version }}
       run: |
-        docker run --rm -v "$PWD":/usr/est/build -w /usr/est/build --platform=${{ matrix.version }} jlogelin/estuary-base:latest /bin/sh -c "GOOS=linux GOARCH=arm64 CARGO_NET_GIT_FETCH_WITH_CLI=true RUSTFLAGS='-C target-cpu=native -g --target aarch64-unknown-linux-gnu' FFI_BUILD_FROM_SOURCE=1 make clean build"
+        docker run --rm -v "$PWD":/usr/est/build -w /usr/est/build --platform=${{ matrix.version }} jlogelin/estuary-base:latest /bin/sh -c "GOOS=linux GOARCH=arm64 CARGO_NET_GIT_FETCH_WITH_CLI=true RUSTFLAGS='-C target-cpu=native -g' FFI_BUILD_FROM_SOURCE=1 make clean build"
     
     - name: Prepare build artifact for stashing
       run: |
