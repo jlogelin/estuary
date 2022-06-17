@@ -76,7 +76,7 @@ jobs:
         name: estuary-${{ matrix.OS }}-${{ matrix.ARCH }}-${{ github.sha }}
         path: ./release
   
-  build_macos_amd64:
+  build_macos:
     runs-on: macos-latest
     strategy:
       matrix:
