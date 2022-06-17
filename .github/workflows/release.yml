@@ -105,7 +105,7 @@ jobs:
     - name: Build binary for macOS
       run: |
         export PATH=/System/Volumes/Data/Users/runner/go/bin:$PATH
-        GOOS=${{ matrix.OS }} GOARCH=${{ matrix.ARCH }} make
+        GOOS=${{ matrix.OS }} GOARCH=${{ matrix.ARCH }} FFI_BUILD_FROM_SOURCE=1 make
     - name: Prepare build artifact for stashing
       run: |
         mkdir release
