@@ -181,8 +181,8 @@ jobs:
       run: |
         mv ./estuary-${{ matrix.OS }}-${{ matrix.ARCH }}-${{ github.sha }}/* .
         test -f ./estuary && chmod +x ./estuary #only on linux & darwin needed
-        zip -j estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip ./*
-        sha256sum estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip > estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip.sha256
+        tar -czvf estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz ./*
+        sha256sum estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz > estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz.sha256
     # Download the previously uploaded artifact which contains the release URL
     - name: Retrieve stashed release URL
       uses: actions/download-artifact@v1
@@ -199,10 +199,10 @@ jobs:
       env:
         VERSION: ${{ steps.get_version.outputs.VERSION }}
       run: |
-        echo ::set-output name=ARTIFACT_PATH::./estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip
-        echo ::set-output name=ARTIFACT_NAME::estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip
-        echo ::set-output name=ARTIFACT_PATH_SHA::./estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip.sha256
-        echo ::set-output name=ARTIFACT_NAME_SHA::estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.zip.sha256
+        echo ::set-output name=ARTIFACT_PATH::./estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz
+        echo ::set-output name=ARTIFACT_NAME::estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz
+        echo ::set-output name=ARTIFACT_PATH_SHA::./estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz.sha256
+        echo ::set-output name=ARTIFACT_NAME_SHA::estuary-$VERSION-${{ matrix.OS }}-${{ matrix.ARCH }}.tar.gz.sha256
     # Finally upload the artifact to the corresponding release
     - name: Upload Release Artifact ${{ matrix.version }}
       uses: actions/upload-release-asset@v1.0.1
